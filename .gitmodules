@@ -1,0 +1,3 @@
+[submodule "monkey-wasm"]
+	path = monkey-wasm
+	url = .\\monkey-wasm\\
