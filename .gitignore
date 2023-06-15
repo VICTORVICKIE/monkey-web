@@ -28,5 +28,4 @@ monkey-wasm/target
 **/*.rs.bk
 monkey-wasm/Cargo.lock
 monkey-wasm/bin/
-monkey-wasm/pkg/
 monkey-wasm/wasm-pack.log
