@@ -39,27 +39,27 @@
 </svelte:head>
 
 <section class="h-screen">
-    <header class="flex p-2 justify-between items-center bg-base-200 text-lg">
+    <header
+        class="flex p-2 justify-between items-center bg-base-200 text-sm gap-4 lg:text-lg"
+    >
         <div class="flex justify-center items-center content-start gap-2">
             <div>Monkey Lang Interpreter</div>
             <a href="https://monkeylang.org/" target="_blank">ⓘ </a>
-            <div class="dropdown dropdown-hover dropdown-bottom">
-                <ChevronDown />
+            <div class="dropdown dropdown-bottom dropdown-hover">
+                <button><ChevronDown /></button>
                 <div
                     class="dropdown-content z-10 card card-compact w-64 p-2 shadow bg-base-200 border border-neutral text-primary-content"
                 >
-                    <!-- svelte-ignore a11y-missing-attribute -->
-                    <!-- svelte-ignore a11y-click-events-have-key-events -->
                     <ul class="menu rounded-box">
                         <li class="menu-title">Examples</li>
                         <li>
-                            <a on:click={() => (code = examples.one_line)}
-                                >One Line</a
+                            <button on:click={() => (code = examples.one_line)}
+                                >One Line</button
                             >
                         </li>
                         <li>
-                            <a on:click={() => (code = examples.two_line)}
-                                >Two Line</a
+                            <button on:click={() => (code = examples.two_line)}
+                                >Two Line</button
                             >
                         </li>
                     </ul>
@@ -80,12 +80,12 @@
             <button
                 class:tab-active={tab === "AST"}
                 class="tab tab-bordered"
-                on:click={() => (tab = "AST")}>AST (WIP)</button
+                on:click={() => (tab = "AST")}>AST</button
             >
             <button
                 class:tab-active={tab === "Output"}
                 class="tab tab-bordered"
-                on:click={() => (tab = "Output")}>Output (WIP)</button
+                on:click={() => (tab = "Output")}>Output</button
             >
         </div>
         <a
@@ -121,18 +121,21 @@
                         <div class="flex mx-auto h-12 my-auto gap-4">
                             {#each tokens as { tag, token_type: { type, value }, position: { column, line, width } }}
                                 {@const color = highlight[tag]}
+                                <!-- svelte-ignore a11y-no-noninteractive-tabindex -->
                                 <div
                                     class="dropdown dropdown-middle dropdown-hover h-fit"
                                 >
                                     <div
-                                        class="btn btn-sm normal-case outline text-base-content
-                            bg-transparent hover:bg-transparent {color}"
+                                        tabindex="0"
+                                        class="btn btn-md normal-case outline text-base-content
+                                                bg-transparent hover:bg-transparent {color}"
                                     >
                                         {type.toUpperCase()}{value
                                             ? `: ${value}`
                                             : ""}
                                     </div>
                                     <div
+                                        tabindex="0"
                                         class="card compact dropdown-content shadow bg-base-100 rounded-box w-20 p-2"
                                     >
                                         Col: {column}<br />
@@ -143,6 +146,11 @@
                             {/each}
                         </div>
                     {/each}
+                </div>
+                <div class="toast md:hidden">
+                    <div class="alert">
+                        <span>Scroll Right in Mobile</span>
+                    </div>
                 </div>
             {:else if tab === "AST"}
                 <div class="mx-auto my-auto">WIP</div>
@@ -166,7 +174,7 @@
     section {
         display: grid;
         grid-template-columns: auto 1fr;
-        grid-template-rows: 4rem auto;
+        grid-template-rows: 6rem auto;
         grid-template-areas:
             "header header"
             "main main";
