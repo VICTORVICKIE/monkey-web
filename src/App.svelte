@@ -15,23 +15,7 @@
 
     onMount(async () => (wasm = await wasm_init()));
 
-    function call_lexer(code: string) {
-        rows = [[]];
-        let tokens: Token[] = lexer(code);
-        let current_line = 0;
-
-        for (const token of tokens) {
-            // mapping line to idx
-            let idx = token.position.line - 1;
-            if (idx > current_line) {
-                current_line = idx;
-                rows.push([]);
-            }
-            rows[current_line]?.push(token);
-        }
-    }
-
-    $: if (wasm) call_lexer(code);
+    $: if (wasm) rows = lexer(code);
 </script>
 
 <svelte:head>
@@ -40,12 +24,15 @@
 
 <section class="h-screen">
     <header
-        class="flex p-2 justify-between items-center bg-base-200 text-sm gap-4 lg:text-lg"
+        class="flex p-2 justify-between items-center bg-base-200 text-md md:text-lg gap-4"
     >
-        <div class="flex justify-center items-center content-start gap-2">
-            <div>Monkey Lang Interpreter</div>
-            <a href="https://monkeylang.org/" target="_blank">ⓘ </a>
-            <div class="dropdown dropdown-bottom dropdown-hover">
+        <div class="flex items-center">
+            <a
+                class="underline underline-offset-2"
+                href="https://monkeylang.org"
+                target="_blank">Monkey Lang Interpreter</a
+            >
+            <div class="dropdown dropdown-bottom dropdown-hover mt-1 h-6">
                 <button><ChevronDown /></button>
                 <div
                     class="dropdown-content z-10 card card-compact w-64 p-2 shadow bg-base-200 border border-neutral text-primary-content"
@@ -89,7 +76,7 @@
             >
         </div>
         <a
-            class="underline"
+            class="underline underline-offset-2"
             target="_blank"
             href="https://www.github.com/VICTORVICKIE">Victor Vickie</a
         >
