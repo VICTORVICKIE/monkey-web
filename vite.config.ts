@@ -4,5 +4,5 @@ import wasmPack from 'vite-plugin-wasm-pack';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [svelte(), wasmPack('./monkey-wasm')],
-})
+    plugins: [svelte(), wasmPack('./monkey-wasm')]
+});
